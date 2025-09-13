@@ -1,6 +1,7 @@
 import {
   Box,
   Divider,
+  RangeSlider,
   Select,
   Slider,
   Text,
@@ -14,13 +15,12 @@ import { MdOutlineRecordVoiceOver } from "react-icons/md";
 import { IoChevronDown } from "react-icons/io5";
 
 function Filters() {
-  const [value, setValue] = useState(50);
-  const [endValue, setEndValue] = useState(50);
+  const [range, setRange] = useState([20, 60]);
 
   return (
-    <div className="flex items-center justify-around px-6 py-4  w-full mx-auto gap-6">
+    <div className="flex items-center justify-around px-6 py-4 w-full mx-auto gap-6">
       <div className="flex items-center min-w-[250px] gap-2">
-        <IoIosSearch />
+        <IoIosSearch className="w-[25px] h-[25px]" />
         <TextInput
           variant="unstyled"
           size="lg"
@@ -34,13 +34,13 @@ function Filters() {
       <Divider size="sm" orientation="vertical" />
 
       <div className="flex items-center min-w-[200px] gap-2">
-        <CiLocationOn />
+        <CiLocationOn className="w-[25px] h-[25px]" />
 
         <TextInput
           variant="unstyled"
           size="lg"
           radius="md"
-          placeholder="Location"
+          placeholder="Preferred Location"
           classNames={{ input: "text-base" }}
           fullWidth
         />
@@ -49,7 +49,7 @@ function Filters() {
       <Divider size="sm" orientation="vertical" />
 
       <div className="flex items-center justify-center gap-3 min-w-[180px]">
-        <MdOutlineRecordVoiceOver size={20}  color="#686868" />
+        <MdOutlineRecordVoiceOver className="w-[25px] h-[25px] text-gray-500" />
         <Select
           variant="unstyled"
           checkIconPosition="right"
@@ -64,25 +64,22 @@ function Filters() {
 
       <Divider size="sm" orientation="vertical" />
 
-      <div className="flex flex-col min-w-[220px]">
+      <div className="flex flex-col min-w-[220px] mb-5">
         <Box mx="auto" maw={400} className="w-full">
-          <div className="flex justify-between mb-1">
-            <p className="font-semibold text-sm" >
-              Salary per month
-            </p>
+          <div className="flex justify-between mb-5">
+            <p className="font-semibold text-md">Salary Per Month</p>
             <p className="font-semibold text-sm">
-                
-              ₹ {value}k - ₹ {endValue}k
+              ₹ {range[0]}k - ₹ {range[1]}k
             </p>
           </div>
 
-          <Slider
-            color="dark"
-            value={value}
-            onChange={setValue}
-            onChangeEnd={setEndValue}
-            size="sm"
-            className="w-full"
+          <RangeSlider
+            color="black"
+            value={range}
+            onChange={setRange}
+            min={50}
+            max={1000}
+            step={1}
           />
         </Box>
       </div>
