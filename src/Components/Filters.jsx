@@ -75,6 +75,7 @@ function Filters() {
 
           <RangeSlider
             color="black"
+            size="sm"
             value={range}
             onChange={setRange}
             min={50}
