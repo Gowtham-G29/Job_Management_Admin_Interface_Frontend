@@ -18,20 +18,19 @@ function Filters() {
   const [range, setRange] = useState([20, 60]);
 
   return (
-    <div className="flex items-center justify-around px-6 py-4 w-full mx-auto gap-6">
-      <div className="flex items-center min-w-[250px] gap-2">
+    <div className="flex items-center justify-around px-6 py-2 w-full mx-auto gap-6">
+      <div className="flex items-center min-w-[250px] gap-2 text-sm">
         <IoIosSearch className="w-[25px] h-[25px]" />
         <TextInput
           variant="unstyled"
           size="lg"
           radius="md"
           placeholder="Search By Job Title, Role"
-          classNames={{ input: "text-base" }}
           fullWidth
         />
       </div>
 
-      <Divider size="sm" orientation="vertical" />
+      <Divider size="sm" orientation="vertical" style={{marginTop:"15px" ,marginBottom:"15px"}} />
 
       <div className="flex items-center min-w-[200px] gap-2">
         <CiLocationOn className="w-[25px] h-[25px]" />
@@ -41,12 +40,11 @@ function Filters() {
           size="lg"
           radius="md"
           placeholder="Preferred Location"
-          classNames={{ input: "text-base" }}
           fullWidth
         />
       </div>
 
-      <Divider size="sm" orientation="vertical" />
+      <Divider size="sm" orientation="vertical" style={{marginTop:"15px" ,marginBottom:"15px"}} />
 
       <div className="flex items-center justify-center gap-3 min-w-[180px]">
         <MdOutlineRecordVoiceOver className="w-[25px] h-[25px] text-gray-500" />
@@ -62,7 +60,7 @@ function Filters() {
         />
       </div>
 
-      <Divider size="sm" orientation="vertical" />
+      <Divider size="sm" orientation="vertical" style={{marginTop:"15px" ,marginBottom:"15px"}} />
 
       <div className="flex flex-col min-w-[220px] mb-5">
         <Box mx="auto" maw={400} className="w-full">
