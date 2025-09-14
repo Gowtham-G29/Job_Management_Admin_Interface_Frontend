@@ -1,10 +1,13 @@
-import Filters from "./Components/Filters"
+import BottomSection from "./Pages/BottomSection";
 import TopSection from "./Pages/TopSection";
 
 function App() {
   return (
-    <TopSection/>
-  )
+    <div style={{ fontFamily: "Satoshi, sans-serif" }}>
+      <TopSection />
+      <BottomSection />
+    </div>
+  );
 }
 
 export default App;

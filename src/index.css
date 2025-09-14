@@ -1,5 +1,13 @@
-@import "tailwindcss";
+@font-face {
+    font-family: satoshi;
+    src: url("./assets/fonts/Satoshi-Variable.ttf"); 
+}
 
+@theme{
+    --font-family: satoshi,"sans-serif";
+}
+
+@import "tailwindcss";
 
 input[type="date"]::-webkit-datetime-edit-text,
 input[type="date"]::-webkit-datetime-edit-month-field,
@@ -20,3 +28,4 @@ input[type="date"]::-moz-inner-spin-button,
 input[type="date"]::-moz-calendar-picker-indicator {
   display: none;
 }
+
