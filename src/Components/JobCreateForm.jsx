@@ -23,7 +23,7 @@ function JobCreateForm({ opened, onClose }) {
 
   const onSubmit = (data) => {
     console.log("Form Data:", data);
-    
+
     onClose();
   };
 
@@ -43,7 +43,12 @@ function JobCreateForm({ opened, onClose }) {
         },
       }}
     >
-      <h2 className="text-2xl font-bold mb-8 text-center">Create New Job</h2>
+      <h2
+        className="text-[24px] font-bold mb-8 text-center"
+        style={{ fontWeight: 700 }}
+      >
+        Create New Job
+      </h2>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <Group grow spacing="md">
@@ -53,7 +58,11 @@ function JobCreateForm({ opened, onClose }) {
             {...register("jobTitle", { required: "Job Title is required" })}
             error={errors.jobTitle && errors.jobTitle.message}
             styles={{
-              input: { borderRadius: "10px", height: "48px" },
+              input: {
+                borderRadius: "10px",
+                height: "48px",
+                fontFamily: "Satoshi, san-serif",
+              },
             }}
           />
 
@@ -65,7 +74,11 @@ function JobCreateForm({ opened, onClose }) {
             })}
             error={errors.companyName && errors.companyName.message}
             styles={{
-              input: { borderRadius: "10px", height: "48px" },
+              input: {
+                borderRadius: "10px",
+                height: "48px",
+                fontFamily: "Satoshi, san-serif",
+              },
             }}
           />
         </Group>
@@ -77,7 +90,11 @@ function JobCreateForm({ opened, onClose }) {
             {...register("location", { required: "Location is required" })}
             error={errors.location && errors.location.message}
             styles={{
-              input: { borderRadius: "10px", height: "48px" },
+              input: {
+                borderRadius: "10px",
+                height: "48px",
+                fontFamily: "Satoshi, san-serif",
+              },
             }}
           />
 
@@ -95,7 +112,11 @@ function JobCreateForm({ opened, onClose }) {
                 {...field}
                 error={errors.jobType && errors.jobType.message}
                 styles={{
-                  input: { borderRadius: "10px", height: "48px" },
+                  input: {
+                    borderRadius: "10px",
+                    height: "48px",
+                    fontFamily: "Satoshi, san-serif",
+                  },
                 }}
               />
             )}
@@ -117,7 +138,12 @@ function JobCreateForm({ opened, onClose }) {
               })}
               error={errors.salaryMin && errors.salaryMin.message}
               styles={{
-                input: { borderRadius: "10px", height: "48px", width: "170px" },
+                input: {
+                  borderRadius: "10px",
+                  height: "48px",
+                  width: "170px",
+                  fontFamily: "Satoshi, san-serif",
+                },
               }}
             />
 
@@ -134,7 +160,12 @@ function JobCreateForm({ opened, onClose }) {
               })}
               error={errors.salaryMax && errors.salaryMax.message}
               styles={{
-                input: { borderRadius: "10px", height: "48px", width: "170px" },
+                input: {
+                  borderRadius: "10px",
+                  height: "48px",
+                  width: "170px",
+                  fontFamily: "Satoshi, san-serif",
+                },
               }}
             />
           </div>
@@ -162,7 +193,14 @@ function JobCreateForm({ opened, onClose }) {
               errors.applicationDeadline && errors.applicationDeadline.message
             }
             styles={{
-              input: { borderRadius: "10px", height: "48px" },
+              input: {
+                borderRadius: "10px",
+                height: "48px",
+                fontFamily: "Satoshi, san-serif",
+              },
+            }}
+            onClick={() => {
+              document.getElementById("application-deadline").showPicker?.();
             }}
           />
         </Group>
@@ -178,7 +216,12 @@ function JobCreateForm({ opened, onClose }) {
           resize="vertical"
           size="md"
           styles={{
-            input: { borderRadius: "8px", width: "730px", height: "130px" },
+            input: {
+              borderRadius: "8px",
+              width: "730px",
+              height: "130px",
+              fontFamily: "Satoshi, san-serif",
+            },
           }}
         />
 

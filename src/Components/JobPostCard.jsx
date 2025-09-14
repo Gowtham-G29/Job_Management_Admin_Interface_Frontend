@@ -19,29 +19,70 @@ function JobPostCard() {
             </Card>
           </div>
 
-          <span className=" inline-flex w-[75px] h-[33px]  rounded-[10px] bg-[#B0D9FF] text-sm font-semibold text-center items-center justify-center">
+          <span
+            className=" inline-flex w-[75px] h-[33px]  rounded-[10px] bg-[#B0D9FF] text-sm font-medium text-center items-center justify-center "
+            style={{
+              fontSize: "14px",
+              fontWeight: "500",
+              color: "#000000",
+            }}
+          >
             24hrs ago
           </span>
         </div>
 
-        <p className="mb-5 font-bold text-xl">Frontend Developer</p>
+        <p
+          className="mb-5 font-bold text-xl "
+          style={{ fontSize: "20px", fontWeight: "700px" }}
+        >
+          Frontend Developer
+        </p>
 
-        <div className="flex items-center justify-between gap-2 mb-3 font-semibold text-sm text-gray-500">
+        <div className="flex items-center justify-between gap-2 mb-3 font-medium">
           <div className="flex items-center gap-1">
-            <GoPersonAdd size={20} />
-            <p>1-3 Yrs Exp</p>
+            <GoPersonAdd size={20} color="#5A5A5A" />
+            <p
+              style={{
+                fontSize: "16px",
+                fontWeight: "500",
+                color: "#5A5A5A",
+              }}
+            >
+              1-3 Yrs Exp
+            </p>
           </div>
           <div className="flex items-center gap-1">
-            <HiOutlineBuildingOffice2 size={20} />
-            <p>Onsite</p>
+            <HiOutlineBuildingOffice2 size={20} color="#5A5A5A" />
+            <p
+              style={{
+                fontSize: "16px",
+                fontWeight: "500",
+                color: "#5A5A5A",
+              }}
+            >
+              Onsite
+            </p>
           </div>
           <div className="flex items-center gap-1">
-            <GoStack size={20} />
-            <p>12LPA</p>
+            <GoStack size={20} color="#5A5A5A" />
+            <p
+              style={{
+                fontSize: "16px",
+                fontWeight: "500",
+                color: "#5A5A5A",
+              }}
+            >
+              12LPA
+            </p>
           </div>
         </div>
         <div className=" max-w-md h-auto right-[9px] overflow-hidden">
-          <p className="text-[13px] text-[#555555] font-medium line-clamp-4 wrap-break-word">
+          <p
+            className="text-[14px] text-[#555555] font-medium line-clamp-4 wrap-break-word"
+            style={{
+              fontWeight: "500",
+            }}
+          >
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae
             excepturi temporibus fugit laudantium dolorem corporis, consequatur
             perferendis, aut ratione quas eos commodi incidunt hic adipisci iure

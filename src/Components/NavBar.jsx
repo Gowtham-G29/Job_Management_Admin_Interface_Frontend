@@ -26,7 +26,7 @@ function NavBar() {
       <header className="flex items-center justify-between px-10 py-4 border-b border-gray-300 shadow-md rounded-full gap-3">
         <img src={Logo} alt="logo" className="h-10 w-10" />
 
-        <nav className="flex items-center gap-4">
+        <nav className="flex items-center gap-4  font-bold">
           {navItems.map((item) => (
             <button
               key={item}
@@ -58,7 +58,7 @@ function NavBar() {
             text-white
             px-6 py-2
             overflow-hidden
-            font-medium
+            font-bold
           "
           onClick={handleButtonClick}
         >
