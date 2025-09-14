@@ -9,7 +9,9 @@ import { MantineProvider } from "@mantine/core";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <MantineProvider>
-      <App />
+      <div style={{ fontFamily: "Satoshi,san-serif" }}>
+        <App />
+      </div>
     </MantineProvider>
   </StrictMode>
 );
