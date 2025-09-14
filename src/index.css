@@ -3,3 +3,10 @@
 @import '@fontsource/roboto/400.css';
 @import '@fontsource/roboto/500.css';
 @import '@fontsource/roboto/700.css'; */
+
+input[type="date"]::-webkit-datetime-edit-text,
+input[type="date"]::-webkit-datetime-edit-month-field,
+input[type="date"]::-webkit-datetime-edit-day-field,
+input[type="date"]::-webkit-datetime-edit-year-field {
+  color: transparent;
+}
