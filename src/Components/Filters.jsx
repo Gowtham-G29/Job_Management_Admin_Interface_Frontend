@@ -56,7 +56,7 @@ function Filters({ setFetchedJobs }) {
           const jobs = await fetchFilteredJobPosts(activeFilters);
           setFetchedJobs(jobs || []);
         } catch (error) {
-          console.error("Error fetching jobs:", error);
+          console.error("Failed to fetch filtered jobs:", error);
           setFetchedJobs([]);
         }
       }

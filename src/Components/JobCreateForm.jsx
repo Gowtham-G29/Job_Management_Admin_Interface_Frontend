@@ -19,7 +19,7 @@ function JobCreateForm({ opened, onClose }) {
     try {
       await createNewJobPost(data);
     } catch (error) {
-      console.error("Failed to create job post:", error);
+      console.error("Error creating job post:", error);
     }
     onClose();
   };
