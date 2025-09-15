@@ -12,6 +12,7 @@ import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { MdOutlineKeyboardDoubleArrowDown } from "react-icons/md";
 import { IoChevronDown } from "react-icons/io5";
 import { IoCalendarClearOutline } from "react-icons/io5";
+import { createNewJobPost } from "../Api";
 
 function JobCreateForm({ opened, onClose }) {
   const {
@@ -21,8 +22,14 @@ function JobCreateForm({ opened, onClose }) {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log("Form Data:", data);
+
+    try {
+      await createNewJobPost(data);
+    } catch (error) {
+      console.error("Failed to create job post:", error);
+    }
 
     onClose();
   };
@@ -125,83 +132,93 @@ function JobCreateForm({ opened, onClose }) {
 
         <Group grow spacing="md">
           <div className="flex justify-between">
-            <TextInput
-              label="Salary Min (₹)"
-              placeholder="₹0"
-              leftSection={<span className="text-[#BCBCBC]">&#8645;</span>}
-              {...register("salaryMin", {
+            <Controller
+              name="minSalary"
+              control={control}
+              rules={{
                 required: "Minimum salary is required",
-                pattern: {
-                  value: /^[0-9]*$/,
-                  message: "Only numbers are allowed",
-                },
-              })}
-              error={errors.salaryMin && errors.salaryMin.message}
-              styles={{
-                input: {
-                  borderRadius: "10px",
-                  height: "48px",
-                  width: "170px",
-                  fontFamily: "Satoshi, san-serif",
-                },
+                min: { value: 0, message: "Salary must be positive" },
               }}
+              render={({ field }) => (
+                <NumberInput
+                  label="Salary Min (₹)"
+                  placeholder="₹0"
+                  min={0}
+                  step={1000}
+                  value={field.value}
+                  onChange={field.onChange}
+                
+                  hideControls
+                  error={errors.salaryMin && errors.salaryMin.message}
+                  styles={{
+                    input: {
+                      borderRadius: "10px",
+                      height: "48px",
+                      width: "170px",
+                      fontFamily: "Satoshi, san-serif",
+                    },
+                  }}
+                  leftSection={
+                    <span style={{ fontSize: "14px", color: "#BCBCBC" }}>
+                      &#8645;
+                    </span>
+                  }
+                  leftSectionWidth={30}
+                />
+              )}
             />
 
-            <TextInput
-              label="Salary Max (₹)"
-              placeholder="₹12,00,000"
-              leftSection={<span className="text-[#BCBCBC]">&#8645;</span>}
-              {...register("salaryMax", {
+            <Controller
+              name="maxSalary"
+              control={control}
+              rules={{
                 required: "Maximum salary is required",
-                pattern: {
-                  value: /^[0-9]*$/,
-                  message: "Only numbers are allowed",
-                },
-              })}
-              error={errors.salaryMax && errors.salaryMax.message}
-              styles={{
-                input: {
-                  borderRadius: "10px",
-                  height: "48px",
-                  width: "170px",
-                  fontFamily: "Satoshi, san-serif",
-                },
+                min: { value: 0, message: "Salary must be positive" },
               }}
+              render={({ field }) => (
+                <NumberInput
+                  label="Salary Max (₹)"
+                  placeholder="₹12,00,000"
+                  min={0}
+                  step={1000}
+                  value={field.value}
+                  onChange={field.onChange}
+                  hideControls
+                  error={errors.salaryMax && errors.salaryMax.message}
+                  styles={{
+                    input: {
+                      borderRadius: "10px",
+                      height: "48px",
+                      width: "170px",
+                      fontFamily: "Satoshi, san-serif",
+                    },
+                  }}
+                  leftSection={
+                    <span style={{ fontSize: "14px", color: "#BCBCBC" }}>
+                      &#8645;
+                    </span>
+                  }
+                  leftSectionWidth={30}
+                />
+              )}
             />
           </div>
-          <TextInput
-            id="application-deadline"
-            label="Application Deadline"
-            type="date"
-            placeholder="Select Deadline"
-            rightSection={
-              <IoCalendarClearOutline
-                size={20}
-                color="#686868"
-                style={{ cursor: "pointer" }}
-                onClick={() => {
-                  document
-                    .getElementById("application-deadline")
-                    .showPicker?.();
-                }}
+
+          <Controller
+            name="applicationDeadLine" 
+            control={control}
+            rules={{ required: "Deadline is required" }}
+            render={({ field }) => (
+              <TextInput
+                type="date"
+                label="Application Deadline"
+                placeholder="Select Deadline"
+                value={field.value || ""}
+                onChange={(e) => field.onChange(e.target.value)} 
+                error={errors.applicationDeadLine?.message} 
+                styles={{ input: { borderRadius: "10px", height: "48px" } }}
               />
-            }
-            {...register("applicationDeadline", {
-              required: "Deadline is required",
-            })}
-            error={
-              errors.applicationDeadline && errors.applicationDeadline.message
-            }
-            styles={{
-              input: {
-                borderRadius: "10px",
-                height: "48px",
-                fontFamily: "Satoshi, san-serif",
-              },
-            }}
-            onClick={() => {
-              document.getElementById("application-deadline").showPicker?.();
-            }}
+            )}
           />
         </Group>
 
