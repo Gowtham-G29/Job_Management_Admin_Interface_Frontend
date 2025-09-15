@@ -16,20 +16,7 @@ input[type="date"]::-webkit-datetime-edit-year-field {
   color: transparent;
 }
 
-/* Hide default calendar icon in Chrome/Safari */
-input[type="date"]::-webkit-calendar-picker-indicator {
-  opacity: 0;
-  display: none;
-  -webkit-appearance: none;
-}
 
-/* Hide default spinner / icon in Firefox */
-input[type="date"]::-moz-inner-spin-button,
-input[type="date"]::-moz-calendar-picker-indicator {
-  display: none;
-}
-
-/* Show selected date after user selects it */
 input[type="date"]:valid::-webkit-datetime-edit-text,
 input[type="date"]:valid::-webkit-datetime-edit-month-field,
 input[type="date"]:valid::-webkit-datetime-edit-day-field,
