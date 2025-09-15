@@ -1,20 +1,63 @@
-import { ScrollArea } from "@mantine/core";
+import { ScrollArea, Text, Center } from "@mantine/core";
 import JobPostCard from "./JobPostCard";
+import { fetchAllJobPosts } from "../Api";
+import { useEffect, useState } from "react";
 
-function BottomSection() {
+function BottomSection({ fetchedJobs }) {
+  const [allJobs, setAllJobs] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const getAllJobs = async () => {
+      setLoading(true);
+      try {
+        const jobs = await fetchAllJobPosts();
+        setAllJobs(jobs || []);
+      } catch (error) {
+        console.error("Failed to fetch all jobs:", error);
+        setAllJobs([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getAllJobs();
+  }, []);
+
+  const displayJobs =
+    fetchedJobs && fetchedJobs.length > 0
+      ? fetchedJobs
+      : allJobs && allJobs.length > 0
+      ? allJobs
+      : [];
+
+  const showNoJobsMessage =
+    !fetchedJobs || fetchedJobs.length === 0 || allJobs.length === 0;
+
   return (
     <div>
       <ScrollArea h={450} scrollbarSize={2} scrollHideDelay={0}>
-        <div className="flex flex-wrap gap-6 justify-center mt-10 mb-10">
-          <JobPostCard />
-          <JobPostCard />
-          <JobPostCard />
-          <JobPostCard />
-          <JobPostCard />
-          <JobPostCard />
-          <JobPostCard />
-          <JobPostCard />
-        </div>
+        {loading || (showNoJobsMessage && displayJobs.length === 0) ? (
+          <div
+            style={{
+              width: "100%",
+              height: "450px", // match ScrollArea height
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Text size="lg" weight={600} align="center" color="gray">
+              {loading ? "Loading jobs..." : "No job posts available."}
+            </Text>
+          </div>
+        ) : (
+          <div className="flex flex-wrap gap-6 justify-center mt-10 mb-10">
+            {displayJobs.map((job) => (
+              <JobPostCard key={job.id} job={job} />
+            ))}
+          </div>
+        )}
       </ScrollArea>
     </div>
   );

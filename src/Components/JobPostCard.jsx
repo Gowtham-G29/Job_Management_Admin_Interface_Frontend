@@ -1,33 +1,48 @@
-import { Card } from "@mantine/core";
+import { Avatar, Card } from "@mantine/core";
 import Amazon from "../assets/images/amazon.png";
 import { GoPersonAdd } from "react-icons/go";
 import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
 import { GoStack } from "react-icons/go";
 
-function JobPostCard() {
+function JobPostCard({ job }) {
   return (
     <div className="shadow-lg ">
       <Card padding="lg" radius="md" className="w-[316px] h-[360px] ">
         <div className="flex justify-between mb-3">
-          <div className="shadow-md">
-            <Card className="w-[83.46px] h-[82px] rounded-[20px]  flex items-center justify-center">
-              <img
-                src={Amazon}
-                alt="Thumbnail"
-                className="w-[65px] h-[65px] "
-              />
-            </Card>
+          <div className="shadow-sm rounded-[20px]">
+            <div className="w-[83.46px] h-[82px] flex items-center justify-center">
+              <Avatar
+                color="cyan"
+                size="lg"
+                radius="xl" 
+                variant="filled"
+              >
+                {job.companyName
+                  ? job.companyName.charAt(0).toUpperCase()
+                  : "?"}
+              </Avatar>
+            </div>
           </div>
 
           <span
-            className=" inline-flex w-[75px] h-[33px]  rounded-[10px] bg-[#B0D9FF] text-sm font-medium text-center items-center justify-center "
-            style={{
-              fontSize: "14px",
-              fontWeight: "500",
-              color: "#000000",
-            }}
+            className="inline-flex w-max-md h-[33px] p-2 rounded-[10px] bg-[#B0D9FF] text-sm font-medium text-center items-center justify-center"
+            style={{ fontSize: "14px", fontWeight: "500", color: "#000000" }}
           >
-            24hrs ago
+            {(() => {
+              const created = new Date(job.createdDate);
+              const now = new Date();
+              const diffMs = now - created;
+
+              const diffMins = Math.floor(diffMs / 1000 / 60);
+              const diffHours = Math.floor(diffMs / 1000 / 60 / 60);
+              const diffDays = Math.floor(diffMs / 1000 / 60 / 60 / 24);
+
+              if (diffMins < 60)
+                return `${diffMins} min${diffMins !== 1 ? "s" : ""} ago`;
+              if (diffHours < 24)
+                return `${diffHours} hr${diffHours !== 1 ? "s" : ""} ago`;
+              return `${diffDays} day${diffDays !== 1 ? "s" : ""} ago`;
+            })()}
           </span>
         </div>
 
@@ -35,58 +50,42 @@ function JobPostCard() {
           className="mb-5 font-bold text-xl "
           style={{ fontSize: "20px", fontWeight: "700px" }}
         >
-          Frontend Developer
+          {job.jobTitle}
         </p>
 
-        <div className="flex items-center justify-between gap-2 mb-3 font-medium">
-          <div className="flex items-center gap-1">
+        <div className="flex items-center justify-between mb-3 font-medium w-full max-w-[264px]">
+          <div className="flex items-center gap-2">
             <GoPersonAdd size={20} color="#5A5A5A" />
-            <p
-              style={{
-                fontSize: "16px",
-                fontWeight: "500",
-                color: "#5A5A5A",
-              }}
-            >
+            <p className="text-[14px] font-medium text-[#5A5A5A]">
               1-3 Yrs Exp
             </p>
           </div>
-          <div className="flex items-center gap-1">
+
+          <div className="flex items-center gap-2">
             <HiOutlineBuildingOffice2 size={20} color="#5A5A5A" />
-            <p
-              style={{
-                fontSize: "16px",
-                fontWeight: "500",
-                color: "#5A5A5A",
-              }}
-            >
-              Onsite
+            <p className="text-[14px] font-medium text-[#5A5A5A]">
+              {job.jobType}
             </p>
           </div>
-          <div className="flex items-center gap-1">
+
+          <div className="flex items-center gap-2">
             <GoStack size={20} color="#5A5A5A" />
-            <p
-              style={{
-                fontSize: "16px",
-                fontWeight: "500",
-                color: "#5A5A5A",
-              }}
-            >
-              12LPA
+            <p className="text-[14px] font-medium text-[#5A5A5A]">
+              {job.maxSalary
+                ? `${Math.round(job.maxSalary / 100000)} LPA`
+                : "N/A"}
             </p>
           </div>
         </div>
-        <div className=" max-w-md h-auto right-[9px] overflow-hidden">
+
+        <div className=" w-[300px] h-[76px] right-[9px] overflow-hidden">
           <p
-            className="text-[14px] text-[#555555] font-medium line-clamp-4 wrap-break-word"
+            className="text-[12px] text-[#555555] font-medium line-clamp-4 wrap-break-word"
             style={{
               fontWeight: "500",
             }}
           >
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae
-            excepturi temporibus fugit laudantium dolorem corporis, consequatur
-            perferendis, aut ratione quas eos commodi incidunt hic adipisci iure
-            accusamus. Ducimus, tempore suscipit.
+            {job.jobDescription}
           </p>
         </div>
 

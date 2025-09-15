@@ -8,29 +8,19 @@ import {
   Button,
   Group,
 } from "@mantine/core";
-import { MdKeyboardDoubleArrowRight } from "react-icons/md";
-import { MdOutlineKeyboardDoubleArrowDown } from "react-icons/md";
+import { MdKeyboardDoubleArrowRight, MdOutlineKeyboardDoubleArrowDown } from "react-icons/md";
 import { IoChevronDown } from "react-icons/io5";
-import { IoCalendarClearOutline } from "react-icons/io5";
 import { createNewJobPost } from "../Api";
 
 function JobCreateForm({ opened, onClose }) {
-  const {
-    control,
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { control, handleSubmit, formState: { errors } } = useForm();
 
   const onSubmit = async (data) => {
-    console.log("Form Data:", data);
-
     try {
       await createNewJobPost(data);
     } catch (error) {
       console.error("Failed to create job post:", error);
     }
-
     onClose();
   };
 
@@ -44,67 +34,60 @@ function JobCreateForm({ opened, onClose }) {
       styles={{
         content: {
           borderRadius: "16px",
-          scrollbarWidth: "none",
           padding: "20px",
-          fontFamily: "Satoshi, san-serif",
+          fontFamily: "Satoshi, sans-serif",
         },
       }}
     >
-      <h2
-        className="text-[24px] font-bold mb-8 text-center"
-        style={{ fontWeight: 700 }}
-      >
-        Create New Job
-      </h2>
+      <h2 className="text-[24px] font-bold mb-8 text-center">Create New Job</h2>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        <Group grow spacing="md">
-          <TextInput
-            label="Job Title"
-            placeholder="Full Stack Developer"
-            {...register("jobTitle", { required: "Job Title is required" })}
-            error={errors.jobTitle && errors.jobTitle.message}
-            styles={{
-              input: {
-                borderRadius: "10px",
-                height: "48px",
-                fontFamily: "Satoshi, san-serif",
-              },
-            }}
+        <Group grow spacing="md" className="flex flex-col md:flex-row">
+          <Controller
+            name="jobTitle"
+            control={control}
+            rules={{ required: "Job Title is required" }}
+            render={({ field }) => (
+              <TextInput
+                label="Job Title"
+                placeholder="Full Stack Developer"
+                {...field}
+                error={errors.jobTitle?.message}
+                styles={{ input: { borderRadius: "10px", height: "48px", fontFamily: "Satoshi, sans-serif" } }}
+              />
+            )}
           />
-
-          <TextInput
-            label="Company Name"
-            placeholder="Amazon, Microsoft, Swiggy"
-            {...register("companyName", {
-              required: "Company Name is required",
-            })}
-            error={errors.companyName && errors.companyName.message}
-            styles={{
-              input: {
-                borderRadius: "10px",
-                height: "48px",
-                fontFamily: "Satoshi, san-serif",
-              },
-            }}
+          <Controller
+            name="companyName"
+            control={control}
+            rules={{ required: "Company Name is required" }}
+            render={({ field }) => (
+              <TextInput
+                label="Company Name"
+                placeholder="Amazon, Microsoft, Swiggy"
+                {...field}
+                error={errors.companyName?.message}
+                styles={{ input: { borderRadius: "10px", height: "48px", fontFamily: "Satoshi, sans-serif" } }}
+              />
+            )}
           />
         </Group>
 
-        <Group grow spacing="md">
-          <TextInput
-            label="Location"
-            placeholder="Choose Preferred Location"
-            {...register("location", { required: "Location is required" })}
-            error={errors.location && errors.location.message}
-            styles={{
-              input: {
-                borderRadius: "10px",
-                height: "48px",
-                fontFamily: "Satoshi, san-serif",
-              },
-            }}
+        <Group grow spacing="md" className="flex flex-col md:flex-row">
+          <Controller
+            name="location"
+            control={control}
+            rules={{ required: "Location is required" }}
+            render={({ field }) => (
+              <TextInput
+                label="Location"
+                placeholder="Choose Preferred Location"
+                {...field}
+                error={errors.location?.message}
+                styles={{ input: { borderRadius: "10px", height: "48px", fontFamily: "Satoshi, sans-serif" } }}
+              />
+            )}
           />
-
           <Controller
             name="jobType"
             control={control}
@@ -117,28 +100,19 @@ function JobCreateForm({ opened, onClose }) {
                 rightSection={<IoChevronDown size={20} color="#686868" />}
                 data={["Internship", "Full Time", "Part Time", "Contract"]}
                 {...field}
-                error={errors.jobType && errors.jobType.message}
-                styles={{
-                  input: {
-                    borderRadius: "10px",
-                    height: "48px",
-                    fontFamily: "Satoshi, san-serif",
-                  },
-                }}
+                error={errors.jobType?.message}
+                styles={{ input: { borderRadius: "10px", height: "48px", fontFamily: "Satoshi, sans-serif" } }}
               />
             )}
           />
         </Group>
 
-        <Group grow spacing="md">
-          <div className="flex justify-between">
+        <Group grow spacing="md" className="flex flex-col md:flex-row">
+          <div className="flex flex-col md:flex-row justify-between gap-4 md:gap-2 w-full">
             <Controller
               name="minSalary"
               control={control}
-              rules={{
-                required: "Minimum salary is required",
-                min: { value: 0, message: "Salary must be positive" },
-              }}
+              rules={{ required: "Minimum salary is required", min: { value: 0, message: "Salary must be positive" } }}
               render={({ field }) => (
                 <NumberInput
                   label="Salary Min (₹)"
@@ -147,34 +121,18 @@ function JobCreateForm({ opened, onClose }) {
                   step={1000}
                   value={field.value}
                   onChange={field.onChange}
-                
                   hideControls
-                  error={errors.salaryMin && errors.salaryMin.message}
-                  styles={{
-                    input: {
-                      borderRadius: "10px",
-                      height: "48px",
-                      width: "170px",
-                      fontFamily: "Satoshi, san-serif",
-                    },
-                  }}
-                  leftSection={
-                    <span style={{ fontSize: "14px", color: "#BCBCBC" }}>
-                      &#8645;
-                    </span>
-                  }
+                  error={errors.minSalary?.message}
+                  styles={{ input: { borderRadius: "10px", height: "48px", width: "100%", fontFamily: "Satoshi, sans-serif" } }}
+                  leftSection={<span style={{ fontSize: "14px", color: "#BCBCBC" }}>&#8645;</span>}
                   leftSectionWidth={30}
                 />
               )}
             />
-
             <Controller
               name="maxSalary"
               control={control}
-              rules={{
-                required: "Maximum salary is required",
-                min: { value: 0, message: "Salary must be positive" },
-              }}
+              rules={{ required: "Maximum salary is required", min: { value: 0, message: "Salary must be positive" } }}
               render={({ field }) => (
                 <NumberInput
                   label="Salary Max (₹)"
@@ -184,20 +142,9 @@ function JobCreateForm({ opened, onClose }) {
                   value={field.value}
                   onChange={field.onChange}
                   hideControls
-                  error={errors.salaryMax && errors.salaryMax.message}
-                  styles={{
-                    input: {
-                      borderRadius: "10px",
-                      height: "48px",
-                      width: "170px",
-                      fontFamily: "Satoshi, san-serif",
-                    },
-                  }}
-                  leftSection={
-                    <span style={{ fontSize: "14px", color: "#BCBCBC" }}>
-                      &#8645;
-                    </span>
-                  }
+                  error={errors.maxSalary?.message}
+                  styles={{ input: { borderRadius: "10px", height: "48px", width: "100%", fontFamily: "Satoshi, sans-serif" } }}
+                  leftSection={<span style={{ fontSize: "14px", color: "#BCBCBC" }}>&#8645;</span>}
                   leftSectionWidth={30}
                 />
               )}
@@ -205,7 +152,7 @@ function JobCreateForm({ opened, onClose }) {
           </div>
 
           <Controller
-            name="applicationDeadLine" 
+            name="applicationDeadLine"
             control={control}
             rules={{ required: "Deadline is required" }}
             render={({ field }) => (
@@ -214,42 +161,35 @@ function JobCreateForm({ opened, onClose }) {
                 label="Application Deadline"
                 placeholder="Select Deadline"
                 value={field.value || ""}
-                onChange={(e) => field.onChange(e.target.value)} 
-                error={errors.applicationDeadLine?.message} 
-                styles={{ input: { borderRadius: "10px", height: "48px" } }}
+                onChange={(e) => field.onChange(e.target.value)}
+                error={errors.applicationDeadLine?.message}
+                styles={{ input: { borderRadius: "10px", height: "48px", width: "100%" } }}
               />
             )}
           />
         </Group>
 
-        <Textarea
-          label="Job Description"
-          placeholder="Please share a description to let the candidate know more about the job role"
-          {...register("jobDescription", {
-            required: "Job Description is required",
-          })}
-          error={errors.jobDescription && errors.jobDescription.message}
-          minRows={6}
-          resize="vertical"
-          size="md"
-          styles={{
-            input: {
-              borderRadius: "8px",
-              width: "730px",
-              height: "130px",
-              fontFamily: "Satoshi, san-serif",
-            },
-          }}
+        <Controller
+          name="jobDescription"
+          control={control}
+          rules={{ required: "Job Description is required" }}
+          render={({ field }) => (
+            <Textarea
+              label="Job Description"
+              placeholder="Please share a description to let the candidate know more about the job role"
+              {...field}
+              error={errors.jobDescription?.message}
+              minRows={6}
+              resize="vertical"
+              size="md"
+              styles={{ input: { borderRadius: "8px", width: "100%", fontFamily: "Satoshi, sans-serif" } }}
+            />
+          )}
         />
 
-        <div className="flex justify-between">
-          <Button
-            variant="default"
-            onClick={onClose}
-            style={{ borderRadius: "8px" }}
-          >
-            Save Draft{" "}
-            <MdOutlineKeyboardDoubleArrowDown className="ml-2" size={20} />
+        <div className="flex flex-col md:flex-row justify-between gap-4">
+          <Button variant="default" onClick={onClose} style={{ borderRadius: "8px" }}>
+            Save Draft <MdOutlineKeyboardDoubleArrowDown className="ml-2" size={20} />
           </Button>
 
           <Button type="submit" color="blue" style={{ borderRadius: "8px" }}>
