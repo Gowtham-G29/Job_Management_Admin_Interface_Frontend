@@ -1,5 +1,5 @@
-import Filters from "../Components/Filters"
-import NavBar from "../Components/NavBar"
+import Filters from "./Filters"
+import NavBar from "./NavBar"
 
 function TopSection() {
     return (

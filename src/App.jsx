@@ -1,12 +1,8 @@
-import BottomSection from "./Pages/BottomSection";
-import TopSection from "./Pages/TopSection";
+import Home from "./Pages/Home";
 
 function App() {
   return (
-    <div>
-      <TopSection />
-      <BottomSection />
-    </div>
+    <Home/>
   );
 }
 
