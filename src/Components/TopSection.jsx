@@ -1,13 +1,13 @@
-import Filters from "./Filters"
-import NavBar from "./NavBar"
+import Filters from "./Filters";
+import NavBar from "./NavBar";
 
-function TopSection({setFetchedJobs}) {
-    return (
-        <div className="flex flex-col gap-3 mt-5 items-center justify-center shadow-lg">
-            <NavBar/>
-            <Filters setFetchedJobs={setFetchedJobs}/>
-        </div>
-    )
+function TopSection({ setFetchedJobs }) {
+  return (
+    <div className="flex flex-col gap-3 mt-5 shadow-lg w-full md:items-center items-stretch">
+      <NavBar />
+      <Filters setFetchedJobs={setFetchedJobs} />
+    </div>
+  );
 }
 
-export default TopSection
+export default TopSection;

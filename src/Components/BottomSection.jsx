@@ -41,7 +41,7 @@ function BottomSection({ fetchedJobs }) {
           <div
             style={{
               width: "100%",
-              height: "450px", // match ScrollArea height
+              height: "450px", 
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -53,7 +53,7 @@ function BottomSection({ fetchedJobs }) {
           </div>
         ) : (
           <div className="flex flex-wrap gap-6 justify-center mt-10 mb-10">
-            {displayJobs.map((job) => (
+            {[...displayJobs].reverse().map((job) => (
               <JobPostCard key={job.id} job={job} />
             ))}
           </div>

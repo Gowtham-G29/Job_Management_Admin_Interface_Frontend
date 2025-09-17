@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8080/api/jobs/admin/";
+const BASE_URL = "https://job-management-admin-interface-backend-b8mz.onrender.com/api/jobs/admin/";
 
 
 

@@ -70,7 +70,6 @@ function Filters({ setFetchedJobs }) {
       className="flex flex-col md:flex-row items-start md:items-center justify-around px-4 md:px-6 py-4 w-full mx-auto gap-4 md:gap-6"
       style={{ fontFamily: "Satoshi, sans-serif" }}
     >
-      {/* Job Title */}
       <div className="flex items-center min-w-[250px] gap-2 text-sm w-full md:w-auto">
         <IoIosSearch className="w-[25px] h-[25px]" />
         <TextInput
@@ -91,7 +90,6 @@ function Filters({ setFetchedJobs }) {
         style={{ marginTop: "15px", marginBottom: "15px" }}
       />
 
-      {/* Location */}
       <div className="flex items-center min-w-[200px] gap-2 w-full md:w-auto">
         <CiLocationOn className="w-[25px] h-[25px]" />
         <TextInput
@@ -112,7 +110,6 @@ function Filters({ setFetchedJobs }) {
         style={{ marginTop: "15px", marginBottom: "15px" }}
       />
 
-      {/* Job Type */}
       <div className="flex items-center justify-center gap-3 w-full md:w-auto">
         <MdOutlineRecordVoiceOver className="w-[25px] h-[25px] text-gray-500" />
         <Controller
@@ -141,7 +138,6 @@ function Filters({ setFetchedJobs }) {
         style={{ marginTop: "15px", marginBottom: "15px" }}
       />
 
-      {/* Salary Range */}
       <div className="flex flex-col min-w-[220px] w-full md:w-auto mb-2 md:mb-0 gap-2">
         <div className="flex items-center justify-between mb-1 gap-4 md:gap-8">
           <Text styles={{ root: { fontSize: "16px", fontWeight: 600 } }}>
