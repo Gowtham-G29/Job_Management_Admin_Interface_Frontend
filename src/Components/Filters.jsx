@@ -26,44 +26,63 @@ function Filters({ setFetchedJobs }) {
   const filters = watch();
   const initialRender = useRef(true);
 
-  useEffect(() => {
-    if (initialRender.current) {
-      initialRender.current = false;
-      return;
+  const prevFilters = useRef(filters);
+
+useEffect(() => {
+
+  if (initialRender.current) {
+    initialRender.current = false;
+    prevFilters.current = filters;
+    return;
+  }
+
+ 
+  const filtersChanged = Object.keys(filters).some(key => {
+    const currentValue = filters[key];
+    const prevValue = prevFilters.current[key];
+
+    if (Array.isArray(currentValue) && Array.isArray(prevValue)) {
+      return currentValue[0] !== prevValue[0] || currentValue[1] !== prevValue[1];
+    }
+    return currentValue !== prevValue;
+  });
+
+  if (!filtersChanged) return; 
+
+  const getJobs = async () => {
+    let activeFilters = Object.fromEntries(
+      Object.entries(filters).filter(([, value]) => {
+        if (Array.isArray(value)) return value[0] !== 100 || value[1] !== 500;
+        return value !== "" && value !== null && value !== undefined;
+      })
+    );
+
+    if (activeFilters.salaryRange) {
+      activeFilters = {
+        ...activeFilters,
+        minSalary: activeFilters.salaryRange[0]*1000,
+        maxSalary: activeFilters.salaryRange[1]*1000,
+      };
+      delete activeFilters.salaryRange;
     }
 
-    const getJobs = async () => {
-      let activeFilters = Object.fromEntries(
-        Object.entries(filters).filter(([, value]) => {
-          if (Array.isArray(value)) {
-            return value[0] !== 100 || value[1] !== 500;
-          }
-          return value !== "" && value !== null && value !== undefined;
-        })
-      );
-
-      if (activeFilters.salaryRange) {
-        activeFilters = {
-          ...activeFilters,
-          minSalary: activeFilters.salaryRange[0],
-          maxSalary: activeFilters.salaryRange[1],
-        };
-        delete activeFilters.salaryRange;
+    if (Object.keys(activeFilters).length > 0) {
+      try {
+        const jobs = await fetchFilteredJobPosts(activeFilters);
+        setFetchedJobs(jobs || []);
+      } catch (error) {
+        console.error("Failed to fetch filtered jobs:", error);
+        setFetchedJobs([]);
       }
+    }
+  };
 
-      if (Object.keys(activeFilters).length > 0) {
-        try {
-          const jobs = await fetchFilteredJobPosts(activeFilters);
-          setFetchedJobs(jobs || []);
-        } catch (error) {
-          console.error("Failed to fetch filtered jobs:", error);
-          setFetchedJobs([]);
-        }
-      }
-    };
+  getJobs();
 
-    getJobs();
-  }, [filters]);
+  prevFilters.current = filters; // update previous filters
+
+}, [filters]);
+
 
   return (
     <div
