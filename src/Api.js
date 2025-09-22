@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8080/api/jobs/admin/";
+const BASE_URL = "https://job-management-admin-interface-backend-2.onrender.com/api/jobs/admin/";
 
 
 
@@ -27,7 +27,7 @@ export const fetchAllJobPosts = async () => {
 export const fetchFilteredJobPosts = async (filters) => {
   try {
     const response = await axios.post(`${BASE_URL}getPostsByFilters`, null, {
-      params: filters, // send as query parameters
+      params: filters, 
     });
     return response.data;
   } catch (error) {
