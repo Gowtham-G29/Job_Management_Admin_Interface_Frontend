@@ -6,20 +6,26 @@ import { GoStack } from "react-icons/go";
 
 function JobPostCard({ job }) {
   return (
-    <div className="shadow-lg ">
+    <div className="shadow-lg drop-shadow-[0_0_14px_0_rgba(211,211,211,0.15)]  bg-[#FFFFFF]">
       <Card padding="lg" radius="md" className="w-[316px] h-[360px] ">
         <div className="flex justify-between mb-3">
-          <div className="shadow-sm rounded-[20px]">
+          <div className="shadow-sm rounded-[13.18px] bg-[linear-gradient(180deg,#FEFEFD_0%,#F1F1F1_100%)]">
             <div className="w-[83.46px] h-[82px] flex items-center justify-center">
               <Avatar
                 color="cyan"
-                size="lg"
-                radius="xl" 
+                radius="xl"
                 variant="filled"
+                style={{
+                  height: "65.89px",
+                  width: "65.89px",
+                }}
               >
-                {job.companyName
-                  ? job.companyName.charAt(0).toUpperCase()
-                  : "?"}
+                <span className="text-2xl">
+                  {" "}
+                  {job.companyName
+                    ? job.companyName.charAt(0).toUpperCase()
+                    : "?"}
+                </span>
               </Avatar>
             </div>
           </div>
@@ -47,28 +53,28 @@ function JobPostCard({ job }) {
         </div>
 
         <p
-          className="mb-5 font-bold text-xl "
+          className="mb-3 font-bold "
           style={{ fontSize: "20px", fontWeight: "700px" }}
         >
           {job.jobTitle}
         </p>
 
         <div className="flex items-center justify-between mb-3 font-medium w-full max-w-[264px]">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center space-x-1">
             <GoPersonAdd size={20} color="#5A5A5A" />
-            <p className="text-[14px] font-medium text-[#5A5A5A]">
+            <p className="text-[16px] font-medium text-[#5A5A5A]">
               1-3 Yrs Exp
             </p>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center space-x-1">
             <HiOutlineBuildingOffice2 size={20} color="#5A5A5A" />
             <p className="text-[14px] font-medium text-[#5A5A5A]">
               {job.jobType}
             </p>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center space-x-1">
             <GoStack size={20} color="#5A5A5A" />
             <p className="text-[14px] font-medium text-[#5A5A5A]">
               {job.maxSalary

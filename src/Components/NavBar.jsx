@@ -3,7 +3,7 @@ import Logo from "../assets/images/logo.png";
 import JobCreateForm from "./JobCreateForm";
 import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
 
-function NavBar() {
+function NavBar({setRefresh}) {
   const [modalOpened, setModalOpened] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -20,31 +20,43 @@ function NavBar() {
 
   return (
     <>
-      <header className="flex items-center justify-between px-4 md:px-10 py-4 border-b border-gray-300 shadow-md relative bg-white rounded-full">
-        <img src={Logo} alt="logo" className="h-10 w-10" />
-
-        <nav className="hidden md:flex items-center gap-4 font-bold">
-          {navItems.map((item) => (
-            <button
-              key={item}
-              className="w-[120px] h-[38px] rounded-[10px] px-2 py-2 hover:bg-white hover:shadow-lg hover:-translate-y-0.5 transition-transform duration-200 ease-in-out flex items-center justify-center cursor-pointer text-gray-700 font-medium"
-            >
-              {item}
+      <header className="top-[21px] left-[275px] md:w-[890px] h-[80px] flex items-center justify-between px-4 md:px-10 border border-[#FCFCFC] rounded-[122px] bg-[#FFFFFF] shadow-[0_0_20px_0_rgba(127,127,127,0.15)]">
+        <img src={Logo} alt="logo" className="h-10 w-10 " />
+        <nav className="hidden md:flex items-center justify-center font-bold">
+          <div className="flex items-center gap-4">
+            <button className="h-[38px] rounded-[10px] px-4 py-2 hover:bg-white hover:shadow-[0_0_14px_0_rgba(198,191,191,0.25)] hover:-translate-y-0.5 transition-transform duration-200 ease-in-out flex items-center justify-center cursor-pointer text-gray-700 font-medium">
+              Home
             </button>
-          ))}
 
-          <button
-            onClick={handleButtonClick}
-            className="group relative bg-gradient-to-tr from-[#A128FF] to-[#6100AD] rounded-full text-white px-6 py-2 overflow-hidden font-bold"
-          >
-            <span className="block transform transition-all duration-300 ease-in-out group-hover:-translate-y-4 group-hover:opacity-0">
-              Create Jobs
-            </span>
-            <span className="absolute inset-0 flex items-center justify-center transform translate-y-4 opacity-0 transition-all duration-300 ease-in-out group-hover:translate-y-0 group-hover:opacity-100">
-              Login
-            </span>
-          </button>
+            <button className="h-[38px] rounded-[10px] px-4 py-2 hover:bg-white hover:shadow-[0_0_14px_0_rgba(198,191,191,0.25)] hover:-translate-y-0.5 transition-transform duration-200 ease-in-out flex items-center justify-center cursor-pointer text-gray-700 font-medium">
+              Find Jobs
+            </button>
+
+            <button className="h-[38px] rounded-[10px] px-4 py-2 hover:bg-white hover:shadow-[0_0_14px_0_rgba(198,191,191,0.25)] hover:-translate-y-0.5 transition-transform duration-200 ease-in-out flex items-center justify-center cursor-pointer text-gray-700 font-medium">
+              Find Talents
+            </button>
+
+            <button className="h-[38px] rounded-[10px] px-4 py-2 hover:bg-white hover:shadow-[0_0_14px_0_rgba(198,191,191,0.25)] hover:-translate-y-0.5 transition-transform duration-200 ease-in-out flex items-center justify-center cursor-pointer text-gray-700 font-medium">
+              About Us
+            </button>
+
+            <button className="h-[38px] rounded-[10px] px-4 py-2 hover:bg-white hover:shadow-[0_0_14px_0_rgba(198,191,191,0.25)] hover:-translate-y-0.5 transition-transform duration-200 ease-in-out flex items-center justify-center cursor-pointer text-gray-700 font-medium">
+              Testimonials
+            </button>
+          </div>
         </nav>
+        <button
+          onClick={handleButtonClick}
+          className="group relative w-[123px] h-[38px] hidden md:flex items-center justify-center gap-[10px] bg-gradient-to-tr from-[#A128FF] to-[#6100AD] rounded-[30px] text-white overflow-hidden"
+        >
+          <span className="block font-bold transform transition-all duration-300 ease-in-out group-hover:-translate-y-4 group-hover:opacity-0">
+            Create Jobs
+          </span>
+
+          <span className="absolute font-bold inset-0 flex items-center justify-center transform translate-y-4 opacity-0 transition-all duration-300 ease-in-out group-hover:translate-y-0 group-hover:opacity-100">
+            Login
+          </span>
+        </button>
 
         <div className="md:hidden flex items-center">
           <button
@@ -58,7 +70,6 @@ function NavBar() {
             )}
           </button>
         </div>
-
         {mobileMenuOpen && (
           <div className="fixed inset-0 bg-white flex flex-col items-center p-6 gap-6 z-50">
             <div className="w-full flex justify-end">
@@ -93,7 +104,7 @@ function NavBar() {
         )}
       </header>
 
-      <JobCreateForm opened={modalOpened} onClose={handleModalClose} />
+      <JobCreateForm opened={modalOpened} onClose={handleModalClose} setRefresh={setRefresh} />
     </>
   );
 }

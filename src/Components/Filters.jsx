@@ -1,11 +1,5 @@
 import { useForm, Controller } from "react-hook-form";
-import {
-  Divider,
-  RangeSlider,
-  Select,
-  Text,
-  TextInput,
-} from "@mantine/core";
+import { Divider, RangeSlider, Select, Text, TextInput } from "@mantine/core";
 import { useEffect, useRef } from "react";
 import { CiLocationOn } from "react-icons/ci";
 import { IoIosSearch } from "react-icons/io";
@@ -19,70 +13,71 @@ function Filters({ setFetchedJobs }) {
       jobTitle: "",
       location: "",
       jobType: "",
-      salaryRange: [100, 500],
+      salaryRange: [50, 80], // default
     },
   });
 
   const filters = watch();
   const initialRender = useRef(true);
-
   const prevFilters = useRef(filters);
 
-useEffect(() => {
-
-  if (initialRender.current) {
-    initialRender.current = false;
-    prevFilters.current = filters;
-    return;
-  }
-
- 
-  const filtersChanged = Object.keys(filters).some(key => {
-    const currentValue = filters[key];
-    const prevValue = prevFilters.current[key];
-
-    if (Array.isArray(currentValue) && Array.isArray(prevValue)) {
-      return currentValue[0] !== prevValue[0] || currentValue[1] !== prevValue[1];
-    }
-    return currentValue !== prevValue;
-  });
-
-  if (!filtersChanged) return; 
-
-  const getJobs = async () => {
-    let activeFilters = Object.fromEntries(
-      Object.entries(filters).filter(([, value]) => {
-        if (Array.isArray(value)) return value[0] !== 100 || value[1] !== 500;
-        return value !== "" && value !== null && value !== undefined;
-      })
-    );
-
-    if (activeFilters.salaryRange) {
-      activeFilters = {
-        ...activeFilters,
-        minSalary: activeFilters.salaryRange[0]*1000,
-        maxSalary: activeFilters.salaryRange[1]*1000,
-      };
-      delete activeFilters.salaryRange;
+  useEffect(() => {
+    if (initialRender.current) {
+      initialRender.current = false;
+      prevFilters.current = filters;
+      return;
     }
 
-    if (Object.keys(activeFilters).length > 0) {
-      try {
-        const jobs = await fetchFilteredJobPosts(activeFilters);
-        setFetchedJobs(jobs || []);
-      } catch (error) {
-        console.error("Failed to fetch filtered jobs:", error);
-        setFetchedJobs([]);
+    const filtersChanged = Object.keys(filters).some((key) => {
+      const currentValue = filters[key];
+      const prevValue = prevFilters.current[key];
+
+      if (Array.isArray(currentValue) && Array.isArray(prevValue)) {
+        return (
+          currentValue[0] !== prevValue[0] || currentValue[1] !== prevValue[1]
+        );
       }
-    }
-  };
+      return currentValue !== prevValue;
+    });
 
-  getJobs();
+    if (!filtersChanged) return;
 
-  prevFilters.current = filters; // update previous filters
+    const getJobs = async () => {
+      let activeFilters = {};
 
-}, [filters]);
+      if (filters.jobTitle.trim() !== "") {
+        activeFilters.jobTitle = filters.jobTitle;
+      }
+      if (filters.location.trim() !== "") {
+        activeFilters.location = filters.location;
+      }
+      if (filters.jobType !== "") {
+        activeFilters.jobType = filters.jobType;
+      }
 
+      if (
+        filters.salaryRange[0] !== 50 ||
+        filters.salaryRange[1] !== 80
+      ) {
+        activeFilters.minSalary = filters.salaryRange[0] * 1000;
+        activeFilters.maxSalary = filters.salaryRange[1] * 1000;
+      }
+
+      if (Object.keys(activeFilters).length > 0) {
+        console.log(activeFilters)
+        try {
+          const jobs = await fetchFilteredJobPosts(activeFilters);
+          setFetchedJobs(jobs || []);
+        } catch (error) {
+          console.error("Failed to fetch filtered jobs:", error);
+          setFetchedJobs([]);
+        }
+      }
+    };
+
+    getJobs();
+    prevFilters.current = filters;
+  }, [filters]);
 
   return (
     <div
@@ -90,15 +85,21 @@ useEffect(() => {
       style={{ fontFamily: "Satoshi, sans-serif" }}
     >
       <div className="flex items-center min-w-[250px] gap-2 text-sm w-full md:w-auto">
-        <IoIosSearch className="w-[25px] h-[25px]" />
+        <IoIosSearch className="w-[25px] h-[25px] text-[#686868]" />
         <TextInput
           variant="unstyled"
           size="lg"
           radius="md"
           placeholder="Search By Job Title, Role"
           {...register("jobTitle")}
-          styles={{ input: { height: "32px", fontSize: "16px" } }}
-          className="flex-1"
+          styles={{
+            input: {
+              height: "32px",
+              fontSize: "16px",
+              fontFamily: "satoshi, san-serif",
+            },
+          }}
+          className="flex-1 font-medium"
         />
       </div>
 
@@ -110,15 +111,21 @@ useEffect(() => {
       />
 
       <div className="flex items-center min-w-[200px] gap-2 w-full md:w-auto">
-        <CiLocationOn className="w-[25px] h-[25px]" />
+        <CiLocationOn className="w-[25px] h-[25px] text-[#686868]" />
         <TextInput
           variant="unstyled"
           size="lg"
           radius="md"
           placeholder="Preferred Location"
           {...register("location")}
-          styles={{ input: { height: "32px", fontSize: "16px" } }}
-          className="flex-1"
+          styles={{
+            input: {
+              height: "32px",
+              fontSize: "16px",
+              fontFamily: "satoshi, san-serif",
+            },
+          }}
+          className="flex-1 font-medium"
         />
       </div>
 
@@ -140,11 +147,17 @@ useEffect(() => {
               withCheckIcon={false}
               data={["Internship", "Full Time", "Part Time", "Contract"]}
               placeholder="Job Type"
-              rightSection={<IoChevronDown size={20} color="#686868" />}
+              rightSection={<IoChevronDown className="w-[25px] h-[25px] text-[#686868]"/>}
               rightSectionWidth={50}
-              styles={{ input: { height: "32px", fontSize: "16px" } }}
+              styles={{
+                input: {
+                  height: "32px",
+                  fontSize: "16px",
+                  fontFamily: "satoshi, san-serif",
+                },
+              }}
               {...field}
-              className="flex-1"
+              className="flex-1 font-medium"
             />
           )}
         />
@@ -159,12 +172,15 @@ useEffect(() => {
 
       <div className="flex flex-col min-w-[220px] w-full md:w-auto mb-2 md:mb-0 gap-2">
         <div className="flex items-center justify-between mb-1 gap-4 md:gap-8">
-          <Text styles={{ root: { fontSize: "16px", fontWeight: 600 } }}>
-            Salary Per Month
-          </Text>
+          <div className="font-semibold text-[16px]">Salary Per Month</div>
           <Text
             styles={{
-              root: { fontSize: "16px", fontWeight: 600, paddingLeft: "10px", paddingRight: "10px" },
+              root: {
+                fontSize: "16px",
+                fontWeight: 600,
+                paddingLeft: "10px",
+                paddingRight: "10px",
+              },
             }}
           >
             ₹ {filters.salaryRange[0]}k - ₹ {filters.salaryRange[1]}k
@@ -177,12 +193,14 @@ useEffect(() => {
           render={({ field }) => (
             <RangeSlider
               color="black"
-              size="sm"
+              size="2px"
+              thumbSize={13}
               min={50}
-              max={1000}
+              max={120}
               step={1}
               value={field.value}
               onChange={field.onChange}
+              
             />
           )}
         />

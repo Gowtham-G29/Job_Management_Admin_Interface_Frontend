@@ -4,10 +4,11 @@ import TopSection from "../Components/TopSection";
 
 function Home() {
   const [fetchedJobs, setFetchedJobs] = useState([]);
+  const [refresh,setRefresh]=useState(0);
   return (
     <div>
-      <TopSection setFetchedJobs={setFetchedJobs} />
-      <BottomSection fetchedJobs={fetchedJobs} />
+      <TopSection setFetchedJobs={setFetchedJobs} setRefresh={setRefresh} />
+      <BottomSection fetchedJobs={fetchedJobs} refresh={refresh} />
     </div>
   );
 }

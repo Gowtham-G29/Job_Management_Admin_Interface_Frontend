@@ -3,7 +3,7 @@ import JobPostCard from "./JobPostCard";
 import { fetchAllJobPosts } from "../Api";
 import { useEffect, useState } from "react";
 
-function BottomSection({ fetchedJobs }) {
+function BottomSection({ fetchedJobs, refresh }) {
   const [allJobs, setAllJobs] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -22,7 +22,25 @@ function BottomSection({ fetchedJobs }) {
     };
 
     getAllJobs();
-  }, []);
+  }, [refresh]);
+
+  if (typeof fetchedJobs === "string") {
+    return (
+      <div
+        style={{
+          width: "100%",
+          height: "450px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Text size="lg" weight={600} align="center" color="gray">
+          No job posts available.
+        </Text>
+      </div>
+    );
+  }
 
   const displayJobs =
     fetchedJobs && fetchedJobs.length > 0
@@ -41,7 +59,7 @@ function BottomSection({ fetchedJobs }) {
           <div
             style={{
               width: "100%",
-              height: "450px", 
+              height: "450px",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
