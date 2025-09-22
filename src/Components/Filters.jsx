@@ -13,7 +13,7 @@ function Filters({ setFetchedJobs }) {
       jobTitle: "",
       location: "",
       jobType: "",
-      salaryRange: [50, 80], // default
+      salaryRange: [50, 80], 
     },
   });
 
@@ -59,8 +59,8 @@ function Filters({ setFetchedJobs }) {
         filters.salaryRange[0] !== 50 ||
         filters.salaryRange[1] !== 80
       ) {
-        activeFilters.minSalary = filters.salaryRange[0] * 1000;
-        activeFilters.maxSalary = filters.salaryRange[1] * 1000;
+        activeFilters.minSalary = filters.salaryRange[0] *1000;
+        activeFilters.maxSalary = filters.salaryRange[1] *1000;
       }
 
       if (Object.keys(activeFilters).length > 0) {
@@ -196,7 +196,7 @@ function Filters({ setFetchedJobs }) {
               size="2px"
               thumbSize={13}
               min={50}
-              max={120}
+              max={150}
               step={1}
               value={field.value}
               onChange={field.onChange}
