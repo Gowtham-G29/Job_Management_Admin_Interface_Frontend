@@ -84,9 +84,9 @@ function JobPostCard({ job }) {
           </div>
         </div>
 
-        <div className=" w-[300px] h-[76px] right-[9px] overflow-hidden">
+        <div className="w-[280px] h-[76px] right-[9px]">
           <p
-            className="text-[12px] text-[#555555] font-medium line-clamp-4 wrap-break-word"
+            className="text-[12px] text-[#555555] font-medium line-clamp-4 break-words whitespace-normal"
             style={{
               fontWeight: "500",
             }}
